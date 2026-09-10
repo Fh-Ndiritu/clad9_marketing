@@ -32,14 +32,13 @@ A typical cycle: `/clad9-content-plan` once, then `/clad9-fb-post` and `/clad9-l
 - **Never describes capture as a video walkthrough.** It's batch photo upload; the `/features` page carries a stale line saying otherwise.
 - **Never claims to replace a human stylist**, and never uses guilt as a sustainability lever. The site explicitly refuses both.
 
-## Reference files
+## How the skills carry their knowledge
 
-Shared across the skills, in `references/`:
+**Every skill is self-contained.** The brand facts, voice rules, claim gate, angle bank and Google Flow steps are written directly into each `SKILL.md`, because a skill's body is the only thing guaranteed to reach the model at runtime — the plugin's folder is not reliably present on disk wherever a skill runs.
 
-- `brand-context.md` — what Clad9 is, the ten features, claim rules, the voice, account details
-- `angle-bank.md` — the nine post angles, the 708-URL content map, seasonal calendar, keyword targets
-- `flow-images.md` — Google Flow manual verified against the live UI, house prompt recipe, rules on depicting people
-- `platform-playbooks.md` — per-platform post shapes, staging steps, comment gates
+The `references/` folder holds longer-form versions of the same material for humans reading the repo. Skills treat it as optional enrichment and never block on it.
+
+The trade-off is duplication: the price rule and the voice rules appear in several files. When they change, `/clad9-brand-refresh` reports which files need editing and gives you the replacement text.
 
 ## Setup notes
 

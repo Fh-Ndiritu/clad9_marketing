@@ -5,41 +5,87 @@ description: Generate marketing images for Clad9 in the user's Google Flow proje
 
 # Generate a Clad9 marketing image in Google Flow
 
-## Read first
+Everything needed is in this file. The UI below was verified live on 2026-09-10 in the Clad9 project; if a label doesn't match what's on screen, trust the screen and note the drift.
 
-> Paths here are relative to this skill's own folder — the base directory announced when the skill loads. If a path doesn't resolve, locate the plugin directory (the one containing `.claude-plugin/plugin.json`) and read `references/` from there. Never proceed on remembered facts if these files can't be read — say so and stop.
+**Project:** `https://flow.google.com/project/7d6deb2c-f424-48f2-98d1-c52b13966f6a` (named "Clad9")
 
-`../../references/flow-images.md` — the verified UI walkthrough, the house prompt recipe, aspect ratios by destination, and the rules on depicting people. Follow it exactly; it was written against the live interface.
+## Verified facts
+
+- Image generation on this account costs **0 credits** — the picker says "Generating will use 0 credits". Generate freely; never ration.
+- A single 1:1 Nano Banana Pro image takes **~15–20 seconds**.
+- Models available: **Nano Banana Pro** (default, and the right choice), Nano Banana 2, Nano Banana 2 Lite.
+- Aspect ratios in the Image picker are exactly **16:9, 4:3, 1:1, 3:4, 9:16**. There is **no 4:5** — use **3:4** for portrait.
+- Output count: **x1, x2, x3, x4**.
+- Flow auto-titles each asset from the prompt.
+
+## The UI
+
+**Left sidebar:** All media · Images · Characters · Scenes · Tools · Trash · Collapse.
+
+**Prompt box (bottom centre):** placeholder "What do you want to create?", a `+` button, an **Agent** toggle, and on the right a chip showing model / aspect ratio / count (e.g. "Nano Banana Pro ☐ x1"), then a **→** submit arrow.
+
+**Clicking the model chip** opens the picker: an **Image | Video** toggle, the five aspect-ratio buttons, the model dropdown, the x1–x4 row, and the credit line.
+
+**Edit View** (click an asset): image centred, **Crop** and **Select** tools on the left, a "What do you want to change?" box for conversational editing, and top right — favourite, share, delete, **download (⤓)**, **Hide history**, **Done**.
 
 ## Steps
 
-1. **Open the project.** `https://flow.google.com/project/7d6deb2c-f424-48f2-98d1-c52b13966f6a`. Confirm the header reads **Clad9** before generating anything — generating into the wrong project scatters assets across the user's account.
-
-2. **Check the visible-watermark toggle is off** (profile picture menu, top right) if this is the first run of the session. Every image is otherwise stamped.
-
-3. **Set up the generation.** Click the model chip → **Image** → aspect ratio for the destination → **Nano Banana Pro** → **x2**.
+1. **Open the project URL. Confirm the header reads Clad9** before generating — otherwise assets scatter across the user's account.
+2. **Check the visible-watermark toggle is off** (menu under the profile picture, top right) if this is the session's first run. Otherwise every image ships stamped. The invisible SynthID watermark stays and should not be tampered with.
+3. **Click the model chip → Image → aspect ratio → Nano Banana Pro → x2.**
 
    | Destination | Ratio |
    |---|---|
-   | Facebook post | 3:4 |
-   | LinkedIn post | 1:1 |
+   | Facebook post | **3:4** |
+   | LinkedIn post | **1:1** |
    | Landscape | 16:9 |
-   | Story/Reel | 9:16 |
+   | Story / Reel | 9:16 |
 
-4. **Write the prompt** using the house recipe. Name fabrics, not garments — "navy wool blazer", never "blazer". Keep to Clad9's palette: cream, camel, navy, burgundy, olive, charcoal, tan. Match the prompt shape to the post's angle using the table in the reference.
+4. **Write the prompt** (recipe below), click the **→** arrow, wait ~20s.
+5. **Judge it honestly.** Reject and re-prompt on garbled text, warped or impossible garments, extra limbs, a visible watermark, or a palette drifted off-brand. Generating again is free — say plainly if an image isn't good enough rather than shipping it.
+6. **Download** via the **⤓** icon in Edit View, or hover the asset → **⋮** → Download. `Ctrl + D` also works.
 
-5. **Generate** and wait ~20 seconds. Costs 0 credits on this account, so generate a second variation rather than settling for a weak first result.
+   **Ask the user before the first download in a session.** Once they agree, continue for the rest of that run without asking again.
 
-6. **Judge the output honestly.** Reject and re-prompt on: garbled text, warped or impossible garments, extra limbs, a visible watermark, or a palette that has drifted off-brand. Say plainly if an image is not good enough rather than shipping it — a bad image is worse than no image.
+7. **Report where the file landed** so the posting skill can attach it.
 
-7. **Download.** In Edit View, the **⤓** icon top right.
+## Prompt recipe
 
-   **Ask the user before the first download in a session** — downloading files needs their go-ahead. Once they agree, continue for the rest of that run without asking again.
+Google's formula for Nano Banana: **[Subject] + [Action] + [Location/context] + [Composition] + [Style]**.
 
-8. **Report** where the file landed so the posting skill can attach it.
+House style, matching clad9.com's cream-and-editorial aesthetic:
 
-## Constraints
+> `[Subject and garments, naming fabrics] on a warm cream linen backdrop, [arrangement]. [Composition], soft diffused daylight from the left, subtle natural shadows. Editorial fashion magazine style, shot on medium-format film, fine grain, muted warm colour grading.`
 
-- Prefer flat-lays and crops over generated people. They age better, avoid uncanny faces, and keep attention on the clothes — which is the product.
-- Never prompt for a named or recognisable real person. Never generate minors. Never upload photos of real people without their consent.
-- If the user wants a consistent look across a campaign, generate one base image and reference it with `@` in later prompts, or save it into **Characters**.
+A verified example that produced an on-brand result:
+
+> *Overhead flat-lay of a small capsule wardrobe on a warm cream linen backdrop: a navy wool blazer, a white cotton t-shirt, indigo straight-leg jeans, tan leather ankle boots, and a camel wool scarf, arranged in a neat evenly-spaced grid. Centre-framed, soft diffused daylight from the left, subtle natural shadows. Editorial fashion magazine style, shot on medium-format film, fine grain, muted warm colour grading.*
+
+**Rules that matter:**
+- **Name the fabric, not the garment** — "navy wool blazer", never just "blazer". Biggest single quality lever for clothing.
+- **Use positive framing** — "empty cream backdrop", never "no clutter".
+- **Control the camera with photographic terms** — overhead, centre-framed, shallow depth of field (f/1.8), medium-full shot.
+- Keep to Clad9's palette: cream, camel, navy, burgundy, olive, charcoal, tan.
+
+## Prompt shape by angle
+
+| Angle | Shape |
+|---|---|
+| Capsule / what-you-own | Overhead flat-lay grid of 5–8 named garments on cream linen |
+| Colour pairing | Two or three folded garments in the exact colours, close-up, fabric texture visible |
+| One garment styled four ways | Four small flat-lays in a 2×2 grid on one backdrop |
+| Product mechanism | Hands-only — folding, sorting, hanging. No UI mockups |
+| Cost-per-wear / analytics | A sparse, almost-empty rail with a few well-worn pieces, warm light |
+| Seasonal | Same recipe, seasonal fabrics and palette (wool and tweed for autumn, linen and cotton for summer) |
+
+## People in images
+
+- **Prefer flat-lays and crops over generated people.** They age better, avoid uncanny faces, and keep attention on the clothes — which is the product.
+- Generating anonymous, synthetic adult models is permitted. If a face must appear, prefer a crop that excludes it — shoulders-down, hands, or a back view.
+- **Never** prompt for a named person, a celebrity, or a lookalike of a real public figure — Google blocks generating prominent people outright.
+- **Never** generate minors.
+- **Never** upload photos of real people for image-to-image without their consent.
+
+## Consistency across a campaign
+
+Generate the base image once, then reference it with `@` in later prompts (the `@` key opens the asset picker), or save it into **Characters** for a recurring model.
