@@ -28,6 +28,8 @@ Everything needed is in this file. The UI below was verified live on 2026-09-10 
 
 **Edit View** (click an asset): image centred, **Crop** and **Select** tools on the left, a "What do you want to change?" box for conversational editing, and top right — favourite, share, delete, **download (⤓)**, **Hide history**, **Done**.
 
+**To generate a *new* image while in Edit View, click Done first.** The "What do you want to change?" box edits the asset you're looking at — it does not start a fresh generation, and the aspect-ratio chip there applies to the edit, not to a new image.
+
 ## Steps
 
 1. **Open the project URL. Confirm the header reads Clad9** before generating — otherwise assets scatter across the user's account.
@@ -43,11 +45,37 @@ Everything needed is in this file. The UI below was verified live on 2026-09-10 
 
 4. **Write the prompt** (recipe below), click the **→** arrow, wait ~20s.
 5. **Judge it honestly.** Reject and re-prompt on garbled text, warped or impossible garments, extra limbs, a visible watermark, or a palette drifted off-brand. Generating again is free — say plainly if an image isn't good enough rather than shipping it.
-6. **Download** via the **⤓** icon in Edit View, or hover the asset → **⋮** → Download. `Ctrl + D` also works.
+6. **Download.** Click the **⤓** icon in Edit View. The icon alone does not download — it opens a small resolution menu:
+
+   | Option | Use it? |
+   |---|---|
+   | **1K — Original size** | **Yes.** This is the image as generated, no upscale artefacts, ~700 KB. Ample for both Pages. |
+   | 2K — Upscaled | Only if the user asks for print or a large hero. |
+   | 4K — Upscaled | Locked behind **Upgrade**. Don't. |
+
+   Click **1K / Original size**, then confirm the file arrived before moving on. It lands in the Mac's **`~/Downloads`** as `<Flow asset title>_<yyyymmddhhmmss>.jpeg` — **JPEG, not PNG**, whatever the source format. Flow titles the asset from the prompt, so the filename is guessable but never assume it: list the folder newest-first and take the top entry.
 
    **Ask the user before the first download in a session.** Once they agree, continue for the rest of that run without asking again.
 
-7. **Report where the file landed** so the posting skill can attach it.
+7. **Put the file somewhere the browser can upload it** — this is the step that has failed before, and getting it wrong loses the whole run's work. See below.
+
+## Getting the file where the composer can reach it
+
+The browser's `file_upload` will only take files this session is allowed to read. **A raw path on the user's machine is rejected**, even for a folder they've just granted:
+
+- ✗ `/Users/fh/Downloads/Autumn_capsule_wardrobe_flat-lay_20260910184250.jpeg` → *"only files this session is allowed to read can be uploaded"*
+- ✓ `/mnt/user-data/uploads/Downloads/Autumn_capsule_wardrobe_flat-lay_20260910184250.jpeg`
+
+So, in order:
+
+1. **`~/Downloads` is not a connected folder by default.** Request access to it once per session (`device_request_folder_access` on `~/Downloads`); it's granted immediately and holds for the rest of the session.
+2. **Find the file.** `ls -lt "$HOME/mnt/Downloads" | head -5` in the device shell. Don't list the folder with `device_list_dir` — this user's Downloads is enormous and the listing blows the token budget.
+3. **Stage it into the session** with `device_stage_files`. It returns a `stagedPath` under `/mnt/user-data/uploads/...`.
+4. **Hand that staged path** to the posting skill. That — not the Mac path — is what gets uploaded.
+
+## Report
+
+Give the posting skill: the **staged path**, the aspect ratio, and a one-line description of what's actually in the frame (it becomes the alt text).
 
 ## Prompt recipe
 

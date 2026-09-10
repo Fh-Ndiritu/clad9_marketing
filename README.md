@@ -47,6 +47,12 @@ The trade-off is duplication — `brand-context.md` appears in four skill folder
 
 **Google Flow** — the project is `flow.google.com/project/7d6deb2c-f424-48f2-98d1-c52b13966f6a`. Image generation costs 0 credits on this account and takes about 20 seconds. Check the visible-watermark toggle is off before a batch.
 
+**The image pipeline, end to end** — this is the part that has broken most often, so it's written out precisely in `clad9-image-run`:
+
+Flow ⤓ → **1K / Original size** (the icon alone doesn't download; it opens a resolution menu) → JPEG lands in `~/Downloads` → grant access to `~/Downloads` → **stage the file into the session** → upload the `/mnt/user-data/uploads/...` path, never the `/Users/...` one.
+
+On LinkedIn the file input only exists **after** the Editor modal is open; searching for it earlier returns the wrong element. Alt text goes on before Next. Flow's C2PA provenance badge stays.
+
 **Facebook identity trap** — the Clad9 Page runs under the personal profile that also administers the Hadaa.app Page, and every new browser tab defaults to Hadaa. Each skill switches identity and verifies the C9 avatar before typing. If you ever see Hadaa's avatar in a Clad9 composer, stop.
 
 **Voice** — social copy uses the blog/methodology register, not the homepage sales voice. Dry, corrective, specific. "Most of us don't have a clothing problem — we have a visibility problem."

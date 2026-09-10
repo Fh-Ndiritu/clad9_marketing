@@ -62,10 +62,27 @@ Seasonal lead: Aug–Sep autumn capsule and transitional layering · Oct–Nov o
 4. **Fetch the source page on clad9.com and read it.** Write from what it says.
 5. **Write the copy.** **The first two lines carry the post** — LinkedIn truncates at "…see more" around 200 characters, so the correction goes in line one, not line four. 120–200 words. One or two sentences per paragraph, blank line between. At most three hashtags at the end, varied between runs. No "Thoughts?", no "Agree?", no engagement bait.
 6. **Run the claim gate** above.
-7. **Generate the image** — invoke `clad9-image-run` with a **1:1** brief.
-8. **Stage it.** Type the copy, attach the image. **Stop. Do not click Post.**
-9. **Prepare the first comment** with the source link — LinkedIn suppresses outbound links in the body too.
+7. **Generate the image** — invoke `clad9-image-run` with a **1:1** brief. **A post without an image is not finished.** Get the staged path back before touching the composer.
+8. **Type the copy**, then **attach the image** by the sequence below.
+9. **Stop. Do not click Post.**
+10. **Prepare the first comment** with the source link — LinkedIn suppresses outbound links in the body too.
+
+## Attaching the image — the exact sequence
+
+LinkedIn's composer hides the real file input until its media modal is open. Doing this out of order wastes calls and can drop the typed copy.
+
+1. **Type the copy first.** Attaching first makes the text area harder to hit.
+2. **Click the photo icon** in the composer's icon row (bottom left, first icon). LinkedIn opens an **Editor** modal reading *"Select files to begin"* with an **Upload from computer** button.
+3. **Do not click "Upload from computer"** — it opens a native macOS file picker that the browser tools cannot see or drive.
+4. **Now** locate the input: `find` for *"file input associated with Upload from computer button"*. It returns a ref whose type is `file`.
+
+   Searching **before** the modal is open returns a plausible-looking but wrong ref, and `file_upload` fails with **"Element is not a file input. Found: `<svg>`"**. That error means the modal wasn't open — not that the path was bad.
+5. **`file_upload`** that ref with the **staged** `/mnt/user-data/uploads/...` path from `clad9-image-run`.
+6. **Add alt text.** Click **ALT** under the preview, type a plain description of the garments and the setting, click **Add**. The ALT chip turns green when it's set. Do this every time — it's an accessibility baseline and LinkedIn favours it.
+7. **Click Next** to return to the composer, then **scroll down inside the composer** and confirm the image preview is actually sitting under the copy. Never report a post as staged without seeing the image in the composer.
+
+**Content credentials:** LinkedIn detects the C2PA/SynthID metadata Flow embeds and adds a *"Content credentials label added"* badge to the image. **Leave it.** It is honest AI-provenance labelling, it is what the methodology angle claims Clad9 stands for, and stripping it would contradict the Page's own position.
 
 ## Hand over
 
-One line: the angle, the source page, that it's staged. Plus the first-comment text.
+One line: the angle, the source page, that it's staged **with the image attached**. Plus the first-comment text.

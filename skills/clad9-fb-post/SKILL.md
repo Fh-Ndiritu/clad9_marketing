@@ -70,10 +70,21 @@ Seasonal lead: Aug–Sep autumn capsule and transitional layering · Oct–Nov o
 4. **Fetch the source page on clad9.com and read it.** Write from what it says, not from memory of the product. This is what keeps posts specific and true.
 5. **Write the copy.** Open on the correction or observation — no "Did you know", no preamble. 60–120 words. The hook must land inside the first 250 characters, before Facebook's fold. Short paragraphs, blank line between.
 6. **Run the claim gate** above.
-7. **Generate the image** — invoke `clad9-image-run` with a **3:4** brief matched to the angle.
-8. **Stage it.** Click the composer, type the copy, attach the image. **Stop. Do not click Post.**
-9. **Prepare the first comment** carrying the source link — Facebook suppresses reach on posts with outbound links in the body. Hand the text to the user to paste after they publish.
+7. **Generate the image** — invoke `clad9-image-run` with a **3:4** brief matched to the angle. **A post without an image is not finished.** Get the staged path back before touching the composer.
+8. **Type the copy**, then **attach the image** by the sequence below.
+9. **Stop. Do not click Post.**
+10. **Prepare the first comment** carrying the source link — Facebook suppresses reach on posts with outbound links in the body. Hand the text to the user to paste after they publish.
+
+## Attaching the image
+
+1. **Type the copy first**, then attach — attaching first makes the text area harder to hit.
+2. **Click Photo/video** in the composer. Facebook reveals its media tray.
+3. **Never click a visible "Add photos" / "Upload" button** — that opens a native macOS file picker the browser tools cannot see or drive.
+4. **`find` the `input[type=file]`** once the tray is open, then **`file_upload`** the **staged** `/mnt/user-data/uploads/...` path from `clad9-image-run` against that ref. Searching before the tray is open returns the wrong element and fails with *"Element is not a file input."*
+5. **Confirm the thumbnail appears in the composer** before reporting the post staged.
+
+Facebook's exact media tray has not been walked end-to-end yet — LinkedIn's has, and it is documented precisely in `clad9-li-post`. If Facebook's differs from the above, **trust the screen, do it, and correct this section afterwards** rather than forcing the LinkedIn shape onto it.
 
 ## Hand over
 
-One line: the angle, the source page, and that it's staged. Plus the first-comment text. Don't paste the whole post back — it's on screen.
+One line: the angle, the source page, and that it's staged **with the image attached**. Plus the first-comment text. Don't paste the whole post back — it's on screen.

@@ -86,7 +86,28 @@ Outputs carry an **invisible SynthID** watermark always; that's fine and should 
 
 In Edit View, click the **download (⤓)** icon top right. From the grid, hover the asset → **⋮** → Download. `Ctrl + D` also works.
 
-Downloading is a file download — **ask the user before the first download in a session**, then proceed for the rest of that run. The exact file format and any resolution picker were not verified; confirm on the first download and note what appears.
+Downloading is a file download — **ask the user before the first download in a session**, then proceed for the rest of that run.
+
+**Verified 2026-09-10.** The ⤓ icon does not download on its own; it opens a resolution menu:
+
+- **1K — Original size.** The generated image, unmodified. ~700 KB. **This is the one to take** for both Pages.
+- **2K — Upscaled.** Only for print or a large hero.
+- **4K — Upscaled.** Greyed out behind an **Upgrade** button.
+
+Output is **JPEG**, named `<Flow asset title>_<yyyymmddhhmmss>.jpeg` — Flow titles the asset from the prompt, so a "Autumn capsule wardrobe flat-lay" prompt yields `Autumn_capsule_wardrobe_flat-lay_20260910184250.jpeg`. Never assume the name; list newest-first and take the top entry.
+
+### Getting the file to the composer
+
+The browser's `file_upload` accepts only paths this session may read. A path on the user's own machine is **rejected** — `/Users/fh/Downloads/x.jpeg` fails with *"only files this session is allowed to read can be uploaded"*, even right after granting that folder. The file has to be staged into the session first:
+
+1. `device_request_folder_access` on `~/Downloads` — once per session, granted immediately.
+2. `ls -lt "$HOME/mnt/Downloads" | head -5` in the device shell to find it. **Do not** use `device_list_dir` on that folder — this user's Downloads is large enough that the listing overruns the token budget in a single call.
+3. `device_stage_files` on the full Mac path → returns a `stagedPath` under `/mnt/user-data/uploads/Downloads/...`.
+4. Upload **that** path.
+
+### Provenance
+
+Flow embeds C2PA / SynthID provenance metadata. LinkedIn reads it and stamps the image *"Content credentials label added."* Leave it in place — it is accurate, and Clad9's methodology angle rests on exactly this kind of honesty about how things are made.
 
 ## Consistency across a campaign
 
