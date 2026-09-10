@@ -5,7 +5,7 @@ description: Write one original Facebook Page post for Clad9 - AI Wardrobe App a
 
 # Stage one Facebook post for Clad9
 
-Everything needed is in this file. The plugin's `references/` folder holds longer-form versions of the same material — read them if they happen to be reachable, but never wait on them and never refuse to run because they aren't.
+Everything needed is in this file. Longer-form versions of the same material sit beside it in this skill's own folder (`references/angle-bank.md`, `references/brand-context.md`, `references/platform-playbooks.md`) — read them for extra depth if they're there, but never wait on them and never refuse to run because they aren't.
 
 ## Accounts
 

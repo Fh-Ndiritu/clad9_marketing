@@ -5,6 +5,8 @@ description: Re-crawl clad9.com and report what changed about the Clad9 brand fa
 
 # Refresh the Clad9 brand facts
 
+Everything needed is in this file. Longer-form versions of the same material sit beside it in this skill's own folder (`references/angle-bank.md`, `references/brand-context.md`) — read them for extra depth if they're there, but never wait on them and never refuse to run because they aren't.
+
 The other Clad9 skills carry their brand facts **inline**, in their own SKILL.md files. This skill checks those facts against the live site and reports drift, so the user can update the plugin.
 
 It does **not** silently rewrite anything the other skills read at runtime — they don't read files, they carry their own copy. Producing a report the user can act on is the whole job.

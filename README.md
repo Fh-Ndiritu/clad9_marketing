@@ -34,11 +34,14 @@ A typical cycle: `/clad9-content-plan` once, then `/clad9-fb-post` and `/clad9-l
 
 ## How the skills carry their knowledge
 
-**Every skill is self-contained.** The brand facts, voice rules, claim gate, angle bank and Google Flow steps are written directly into each `SKILL.md`, because a skill's body is the only thing guaranteed to reach the model at runtime — the plugin's folder is not reliably present on disk wherever a skill runs.
+**Belt and braces.** Two independent copies, because either one alone has failed:
 
-The `references/` folder holds longer-form versions of the same material for humans reading the repo. Skills treat it as optional enrichment and never block on it.
+1. **Inline in each `SKILL.md`** — brand facts, voice rules, claim gate, angle bank, Flow steps. The skill body is the only thing guaranteed to reach the model at runtime, so a skill is fully operable from its body alone.
+2. **`skills/<skill>/references/`** — longer-form versions, sitting *inside each skill's own folder*, the same layout `hadaa-marketing` uses. References at the plugin root do **not** travel with a skill; a session that receives only the skill's subtree sees a flat directory.
 
-The trade-off is duplication: the price rule and the voice rules appear in several files. When they change, `/clad9-brand-refresh` reports which files need editing and gives you the replacement text.
+Skills treat the reference files as optional depth and never block when they're absent.
+
+The trade-off is duplication — `brand-context.md` appears in four skill folders, and the price and voice rules appear in several `SKILL.md` files. `/clad9-brand-refresh` names every file that needs editing when the facts change.
 
 ## Setup notes
 
