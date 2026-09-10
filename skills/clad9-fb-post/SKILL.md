@@ -75,15 +75,25 @@ Seasonal lead: Aug–Sep autumn capsule and transitional layering · Oct–Nov o
 9. **Stop. Do not click Post.**
 10. **Prepare the first comment** carrying the source link — Facebook suppresses reach on posts with outbound links in the body. Hand the text to the user to paste after they publish.
 
-## Attaching the image
+## Attaching the image — verified 2026-09-10
 
-1. **Type the copy first**, then attach — attaching first makes the text area harder to hit.
-2. **Click Photo/video** in the composer. Facebook reveals its media tray.
-3. **Never click a visible "Add photos" / "Upload" button** — that opens a native macOS file picker the browser tools cannot see or drive.
-4. **`find` the `input[type=file]`** once the tray is open, then **`file_upload`** the **staged** `/mnt/user-data/uploads/...` path from `clad9-image-run` against that ref. Searching before the tray is open returns the wrong element and fails with *"Element is not a file input."*
-5. **Confirm the thumbnail appears in the composer** before reporting the post staged.
+**Facebook is easier than LinkedIn here, and the difference matters.** LinkedIn hides its file input until a modal opens; **Facebook's is already in the DOM** as soon as the Create post dialog is up. Don't go looking for a modal — there isn't one.
 
-Facebook's exact media tray has not been walked end-to-end yet — LinkedIn's has, and it is documented precisely in `clad9-li-post`. If Facebook's differs from the above, **trust the screen, do it, and correct this section afterwards** rather than forcing the LinkedIn shape onto it.
+1. **Open the composer** — click "What's on your mind?" on the Page. The **Create post** dialog opens with the C9 avatar, a **Public** selector and an **AI label** control.
+2. **Type the copy first**, then attach — attaching first makes the text area harder to hit.
+3. **`find` the file input straight away**: *"hidden file input for photo/video upload in the Create post dialog"*. It comes back as the input behind the **Photo/video** button. No clicking needed.
+4. **Never click the green Photo/video icon** — it opens a native macOS file picker the browser tools cannot see or drive. The `find` → `file_upload` route bypasses it entirely.
+5. **`file_upload`** that ref with the **staged** `/mnt/user-data/uploads/...` path from `clad9-image-run`.
+6. **Scroll down inside the dialog and confirm the preview** sits under the copy. Never report a post staged without seeing it.
+7. **Leave it on `Next`.** Facebook's flow is Next → Post, two clicks; stopping at Next keeps both out of your hands.
+
+**Facebook has no alt-text field in this composer** (LinkedIn does — set it there). Facebook auto-generates one.
+
+## The AI label
+
+The Create post dialog carries an **AI label off / on** control. Clad9's images are AI-generated, LinkedIn stamps its own content-credentials badge on them automatically, and the methodology angle is built on being straight about how things are made — so **turning it on is the consistent choice**.
+
+It changes how the post presents publicly, so **don't flip it silently**: leave it as found, and say in the hand-over that it's off and that turning it on would match LinkedIn. The user decides.
 
 ## Hand over
 
