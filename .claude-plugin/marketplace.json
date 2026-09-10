@@ -1,0 +1,15 @@
+{
+  "name": "clad9-marketing",
+  "owner": {
+    "name": "Francis Karuri",
+    "email": "francis@hadaa.app"
+  },
+  "plugins": [
+    {
+      "name": "clad9-marketing",
+      "source": "./",
+      "description": "Content strategy and posting automation for Clad9 (clad9.com), the AI wardrobe app.",
+      "version": "0.1.1"
+    }
+  ]
+}
