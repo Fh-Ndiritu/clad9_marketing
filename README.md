@@ -13,9 +13,14 @@ Built from a full crawl of the live site on 2026-09-10: 708 URLs across five pro
 | `/clad9-image-run` | Generates a marketing image in the Clad9 Google Flow project and downloads it. |
 | `/clad9-fb-post` | Writes and stages one Facebook Page post, unsubmitted. |
 | `/clad9-li-post` | Writes and stages one LinkedIn Page post, unsubmitted. |
+| `/clad9-ig-post` | Writes and stages one Instagram post or carousel, unsubmitted. |
 | `/clad9-comment-run` | Finds 4–5 worthwhile posts and stages a comment into each, unsubmitted. |
 
-A typical cycle: `/clad9-content-plan` once, then `/clad9-fb-post` and `/clad9-li-post` against it, with `/clad9-comment-run` in between.
+A typical cycle: `/clad9-content-plan` once, then `/clad9-fb-post`, `/clad9-li-post` and `/clad9-ig-post` against it, with `/clad9-comment-run` in between.
+
+**Instagram is not the other two with different pixels.** It runs carousels, not essays; the caption's first 125 characters are the whole post; hashtags belong in the body there and nowhere else; and the anti-slop methodology angle — the strongest on LinkedIn — is the weakest on Instagram, because it's an argument and Instagram doesn't read arguments. `/clad9-ig-post` carries its own format rules for this. `/clad9-content-plan` does not yet know Instagram exists and still plans two platforms; that's the next thing to fix.
+
+The Instagram account is **`@clad9app`**, display name **Clad9 — AI Wardrobe App**. `@clad9` is someone else's — a dormant account based in Brazil, joined January 2023, no posts. Don't post to it, don't try to reclaim it.
 
 ## How it behaves
 
