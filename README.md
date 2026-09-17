@@ -20,7 +20,7 @@ A typical cycle: `/clad9-content-plan` once, then `/clad9-fb-post`, `/clad9-li-p
 
 **Instagram is not the other two with different pixels.** It runs carousels, not essays; the caption's first 125 characters are the whole post; hashtags belong in the body there and nowhere else; and the anti-slop methodology angle — the strongest on LinkedIn — is the weakest on Instagram, because it's an argument and Instagram doesn't read arguments. `/clad9-ig-post` carries its own format rules for this. `/clad9-content-plan` does not yet know Instagram exists and still plans two platforms; that's the next thing to fix.
 
-The Instagram account is **`@clad9app`**, display name **Clad9 — AI Wardrobe App**. `@clad9` is someone else's — a dormant account based in Brazil, joined January 2023, no posts. Don't post to it, don't try to reclaim it.
+The Instagram account is **`@clad9_app`** — with an underscore; `@clad9app` does not exist. Display name is **Clad9** (Instagram's Name and link fields are mobile-only, so web can't set them). `@clad9` is someone else's — a dormant account based in Brazil, joined January 2023, no posts. Don't post to it, don't try to reclaim it.
 
 ## How it behaves
 

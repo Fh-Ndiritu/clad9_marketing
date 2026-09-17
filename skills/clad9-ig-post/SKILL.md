@@ -9,9 +9,26 @@ Everything needed is in this file. Longer-form versions of the same material sit
 
 ## Accounts
 
-- **Instagram:** `@clad9app` — display name **Clad9 — AI Wardrobe App**, matching the Facebook Page. Verify the handle on the first run of a session; `@clad9` is a different, unrelated account (Brazil, joined January 2023, dormant) and is **not** ours.
-- **Site:** clad9.com — the bio link is `clad9.com/users/sign_up`
+- **Instagram:** **`@clad9_app`** — note the **underscore**. Display name is currently **Clad9**.
+- **Site:** clad9.com
 - Operated by Hadaa, Inc., the same company behind hadaa.app
+
+**Two handles that are not us.** `@clad9` is an unrelated dormant account (Brazil, joined January 2023, no posts). `@clad9app` — no underscore — does not exist. Only `@clad9_app` is ours.
+
+## Profile fields: what web can and cannot set — verified 2026-09-17
+
+Instagram's web **Edit profile** (`instagram.com/accounts/edit/`) is missing fields the mobile app has. Don't burn calls hunting for them:
+
+| Field | Web? |
+|---|---|
+| Bio | **Yes** — edit, then **Submit** at the bottom of the page. Nothing saves until Submit. |
+| Profile photo | **Yes** — `find` the hidden input behind **Change photo**, then `file_upload`. Confirms with "Profile photo added." |
+| **Website / link** | **No.** The field renders but is disabled: *"Editing your links is only available on mobile."* |
+| **Name** (the searchable display name) | **No.** Not present on web at all. |
+
+So the bio must carry the URL as plain text — `clad9.com — free to start` — or the profile has no address at all until someone opens the mobile app. Say this in the hand-over rather than quietly leaving a bio whose "link in bio" points at nothing.
+
+The **AI-generated profile** toggle on that page is about a profile that *features an AI-generated person*. Clad9's is a monogram and flat-lays, so it stays **off**. That is a different control from the per-post AI label below, which does apply.
 
 ## The identity trap — check every single time
 
@@ -68,7 +85,7 @@ Carousel shapes that fit the angle bank:
 | Correct an advice cliché | Card 1 the cliché in plain type · 2 why it fails · 3–4 the mechanism |
 | Cost-per-wear | Card 1 a sparse rail · 2–3 the arithmetic, honestly |
 
-**Aspect ratio: 3:4.** Instagram's ideal feed portrait is 4:5, and **Flow does not offer 4:5** — its options are 16:9, 4:3, 1:1, 3:4, 9:16. 3:4 is the closest and Instagram accepts it without cropping the subject. Never generate 1:1 for feed unless the post is a carousel of square cards; square wastes vertical space in the feed.
+**Aspect ratio: generate 3:4, publish at 4:5.** Instagram's feed portrait is **4:5**, and **Flow does not offer it** — its options are 16:9, 4:3, 1:1, 3:4, 9:16. So generate at **3:4** and **crop to 4:5 in the composer** (see the staging steps). 3:4 is *taller* than Instagram's limit, so it will not publish uncropped — leave a little headroom around the garment when prompting, because the crop takes it off the top and bottom. Never generate 1:1 for feed unless the whole carousel is square; square wastes vertical space.
 
 **Every card must be legible at thumbnail size.** If the garments in a flat-lay are small enough to become mush at 160px, re-prompt closer.
 
@@ -95,23 +112,34 @@ Seasonal lead: Aug–Sep autumn capsule and transitional layering · Oct–Nov o
 7. **Generate the images** — invoke `clad9-image-run` with a **3:4** brief per card. A post without images is not a post.
 8. **Stage it** by the sequence below. **Stop. Do not publish.**
 
-## Staging it — read this before touching the composer
+## Staging it — walked end to end 2026-09-17
 
-**This flow has not been walked end to end yet.** Facebook's and LinkedIn's have, and they are documented precisely in `clad9-fb-post` and `clad9-li-post`. What follows is the shape those two share plus what is known about Instagram; **trust the screen over this section, and correct it afterwards** rather than forcing another platform's shape onto it.
+**Which path `file_upload` accepts.** Only `/mnt/user-data/uploads/...`. Both of these are rejected with *"only files this session is allowed to read can be uploaded"*:
 
-What carries over and is not in doubt:
+- a path on the user's machine (`/Users/fh/Downloads/...`), even for a folder just granted
+- **`/mnt/user-data/outputs/...`** — the outputs folder is *not* readable by the uploader either
 
-- **Stage the files into the session first.** `file_upload` rejects a path on the user's machine outright — *"only files this session is allowed to read can be uploaded"* — even for a granted folder. Run `device_stage_files` on the downloaded images and upload the `/mnt/user-data/uploads/...` paths it returns. This is the single most common failure.
-- **Never click a visible "Select from computer" button.** It opens a native picker the browser tools cannot drive. `find` the `input[type=file]` and upload to it directly.
-- **When the input does not exist yet**, the `find` returns a wrong element and `file_upload` fails with *"Element is not a file input."* That error means a dialog was not open, not that the path was bad. Open the dialog, then search again.
+So: `device_stage_files` for anything downloaded from Flow, or a plain `cp` into `/mnt/user-data/uploads/` for anything generated in the container. Upload that path.
 
-Instagram-specific, to verify on the first run and write down:
+**Never click a visible "Select from computer" button** — native picker, undrivable. `find` the input and upload to it.
 
-1. Instagram posts from the web via the **Create** button (the ✛ in the left rail), which opens a "Create new post" dialog with a drag-and-drop area and a **Select from computer** button.
-2. For a carousel, upload **all cards in one `file_upload` call** so they land in order; the dialog also has a layers control for adding more afterwards.
-3. The flow is Create → crop → filters/edit → **Next** → caption screen → **Share**. Stop on the caption screen with the caption typed. Never click Share.
-4. **Alt text** is on the caption screen under *Accessibility*, per image. Set it for every card.
-5. Instagram may show an **AI-generated content** disclosure toggle. Clad9's images are AI-generated and LinkedIn labels them automatically, so turning it on is the consistent choice — but it changes how the post presents publicly, so leave it as found and say so in the hand-over. The user decides.
+### The flow
+
+1. **Create** — the plus in the left rail. A **Create new post** dialog opens. Its `input[type=file]` is in the DOM as soon as the dialog is up: `find` *"hidden file input associated with Select from computer button"*.
+2. **Upload every card in one `file_upload` call** — they land in carousel order, so pass them in reading order.
+3. **Crop — do not skip this.** It defaults to **1:1** and will silently square-crop the cards. Click the crop icon (bottom left) and choose **4:5**.
+
+   **Why 4:5 and not Original:** Instagram accepts 1.91:1 down to 4:5. Flow's **3:4 sits outside that range**, so "Original" is not safe; 4:5 is the closest supported ratio and crops only slightly. The ratio applies to the whole carousel.
+4. **Filters** — leave **Original** selected; the Flow grading is already the house look. **Next.**
+5. **Caption screen.** Type the caption.
+6. **AI label — turn it ON.** Instagram's own wording: *"This label is required for realistic photos and videos made with AI."* Our flat-lays are exactly that, so this is a platform requirement, not a brand preference — and **not** the same as Facebook's optional toggle. Turn it on, and say so in the hand-over.
+7. **Alt text** — expand **Accessibility**, below the AI label, for one field per card. Fill every one; Instagram otherwise auto-generates something vague.
+8. **Stop. Never click Share.**
+
+### Two traps in this composer
+
+- **Never press Escape.** It does not dismiss a dropdown — it opens **"Discard post?"**, and the wrong click there loses the upload, the crop and the caption. If it appears, click **Cancel**.
+- **The hashtag autocomplete covers the lower half of the panel** the moment you type a `#`, hiding the AI label and Accessibility sections. Dismiss it by clicking a **non-hashtag line of the caption** — not Escape.
 
 ## Hand over
 
